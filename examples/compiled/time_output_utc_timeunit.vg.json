@@ -26,9 +26,10 @@
           "field": "date",
           "type": "timeunit",
           "units": ["year", "month", "date", "hours", "minutes"],
+          "timezone": "utc",
           "as": [
-            "utcyearmonthdatehoursminutes_date",
-            "utcyearmonthdatehoursminutes_date_end"
+            "yearmonthdatehoursminutes_timezone_utc_date",
+            "yearmonthdatehoursminutes_timezone_utc_date_end"
           ]
         }
       ]
@@ -39,15 +40,20 @@
       "name": "marks",
       "type": "line",
       "style": ["line"],
-      "sort": {"field": "datum[\"utcyearmonthdatehoursminutes_date\"]"},
+      "sort": {
+        "field": "datum[\"yearmonthdatehoursminutes_timezone_utc_date\"]"
+      },
       "from": {"data": "data_0"},
       "encode": {
         "update": {
           "stroke": {"value": "#4c78a8"},
-          "x": {"scale": "x", "field": "utcyearmonthdatehoursminutes_date"},
+          "x": {
+            "scale": "x",
+            "field": "yearmonthdatehoursminutes_timezone_utc_date"
+          },
           "y": {"scale": "y", "field": "price"},
           "defined": {
-            "signal": "isValid(datum[\"utcyearmonthdatehoursminutes_date\"]) && isFinite(+datum[\"utcyearmonthdatehoursminutes_date\"]) && isValid(datum[\"price\"]) && isFinite(+datum[\"price\"])"
+            "signal": "isValid(datum[\"yearmonthdatehoursminutes_timezone_utc_date\"]) && isFinite(+datum[\"yearmonthdatehoursminutes_timezone_utc_date\"]) && isValid(datum[\"price\"]) && isFinite(+datum[\"price\"])"
           }
         }
       }
@@ -59,7 +65,7 @@
       "type": "time",
       "domain": {
         "data": "data_0",
-        "field": "utcyearmonthdatehoursminutes_date"
+        "field": "yearmonthdatehoursminutes_timezone_utc_date"
       },
       "range": [0, {"signal": "width"}]
     },

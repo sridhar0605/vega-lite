@@ -45,6 +45,12 @@
           "type": "timeunit",
           "units": ["year"],
           "as": ["year_Year", "year_Year_end"]
+        },
+        {
+          "field": "Year",
+          "type": "timeunit",
+          "units": ["year"],
+          "as": ["year_Year", "year_Year_end"]
         }
       ]
     },

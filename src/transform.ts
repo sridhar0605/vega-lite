@@ -6,7 +6,7 @@ import {ImputeParams} from './impute';
 import {LogicalComposition, normalizeLogicalComposition} from './logical';
 import {normalizePredicate, Predicate} from './predicate';
 import {SortField} from './sort';
-import {TimeUnit} from './timeunit';
+import {TimeUnit, TimeUnitParams} from './timeunit';
 
 export interface FilterTransform {
   /**
@@ -69,7 +69,7 @@ export interface TimeUnitTransform {
   /**
    * The timeUnit.
    */
-  timeUnit: TimeUnit;
+  timeUnit: TimeUnit | TimeUnitParams;
 
   /**
    * The data field to apply time unit.
@@ -80,6 +80,12 @@ export interface TimeUnitTransform {
    * The output field to write the timeUnit value.
    */
   as: FieldName;
+
+  /**
+   * `true` to output both start and end unit values, `false` to output only
+   * the start value (floored).
+   */
+  interval?: boolean;
 }
 
 export interface AggregateTransform {

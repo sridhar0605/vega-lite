@@ -77,7 +77,7 @@ describe('compile/data/timeunit', () => {
       });
       const timeUnitNode = TimeUnitNode.makeFromEncoding(null, model);
       expect(timeUnitNode.hash()).toBe(
-        'TimeUnit {"{\\"as\\":\\"month_a\\",\\"field\\":\\"a\\",\\"timeUnit\\":\\"month\\"}":{"as":"month_a","field":"a","timeUnit":"month"}}'
+        'TimeUnit {"{\\"as\\":\\"month_a\\",\\"field\\":\\"a\\",\\"timeUnit\\":{\\"units\\":\\"month\\"}}":{"as":"month_a","field":"a","timeUnit":{"units":"month"}}}'
       );
     });
     it('should generate the correct hash for bar', () => {
@@ -90,7 +90,7 @@ describe('compile/data/timeunit', () => {
       });
       const timeUnitNode = TimeUnitNode.makeFromEncoding(null, model);
       expect(timeUnitNode.hash()).toBe(
-        'TimeUnit {"{\\"as\\":\\"month_a\\",\\"field\\":\\"a\\",\\"timeUnit\\":\\"month\\"}":{"as":"month_a","band":true,"field":"a","timeUnit":"month"}}'
+        'TimeUnit {"{\\"as\\":\\"month_a\\",\\"field\\":\\"a\\",\\"timeUnit\\":{\\"units\\":\\"month\\"}}":{"as":"month_a","band":true,"field":"a","timeUnit":{"units":"month"}}}'
       );
     });
   });

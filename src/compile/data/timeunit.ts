@@ -1,7 +1,7 @@
 import {TimeUnitTransform as VgTimeUnitTransform} from 'vega';
 import {getSecondaryRangeChannel} from '../../channel';
 import {hasBand, vgField} from '../../channeldef';
-import {getTimeUnitParts} from '../../timeunit';
+import {getTimeUnitParts, normalizeTimeUnit} from '../../timeunit';
 import {TimeUnitTransform} from '../../transform';
 import {Dict, duplicate, hash, keys, vals} from '../../util';
 import {isUnitModel, ModelWithField} from '../model';
@@ -23,7 +23,7 @@ export class TimeUnitNode extends DataFlowNode {
 
   public static makeFromEncoding(parent: DataFlowNode, model: ModelWithField) {
     const formula = model.reduceFieldDef((timeUnitComponent: TimeUnitComponent, fieldDef, channel) => {
-      const {timeUnit, field} = fieldDef;
+      const {field, timeUnit} = fieldDef;
 
       const channelDef2 = isUnitModel(model) ? model.encoding[getSecondaryRangeChannel(channel)] : undefined;
 
@@ -31,10 +31,16 @@ export class TimeUnitNode extends DataFlowNode {
 
       if (timeUnit) {
         const as = vgField(fieldDef, {forAs: true});
-        timeUnitComponent[hash({as, timeUnit, field})] = {
+        timeUnitComponent[
+          hash({
+            as,
+            field,
+            timeUnit
+          })
+        ] = {
           as,
-          timeUnit,
           field,
+          timeUnit,
           ...(band ? {band: true} : {})
         };
       }
@@ -95,12 +101,14 @@ export class TimeUnitNode extends DataFlowNode {
     const transforms: VgTimeUnitTransform[] = [];
 
     for (const f of vals(this.formula)) {
-      const {timeUnit, field, as} = f;
+      const {field, as, timeUnit} = f;
+      const {units, ...params} = normalizeTimeUnit(timeUnit);
 
       transforms.push({
         field,
         type: 'timeunit',
-        units: getTimeUnitParts(timeUnit),
+        units: getTimeUnitParts(units),
+        ...params,
         as: [as, `${as}_end`]
       });
     }

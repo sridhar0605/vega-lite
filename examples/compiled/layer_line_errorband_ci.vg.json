@@ -18,6 +18,12 @@
           "as": ["year_Year", "year_Year_end"]
         },
         {
+          "field": "Year",
+          "type": "timeunit",
+          "units": ["year"],
+          "as": ["year_Year", "year_Year_end"]
+        },
+        {
           "type": "aggregate",
           "groupby": ["year_Year"],
           "ops": ["ci0", "ci1", "mean", "mean"],
